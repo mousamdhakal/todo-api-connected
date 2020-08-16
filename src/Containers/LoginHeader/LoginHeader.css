@@ -1,0 +1,17 @@
+.user__buttons {
+  margin: 5px 0;
+}
+
+.user__button {
+  background-color: var(--fair-grey);
+  color: var(--light-red);
+}
+
+@media (min-width: 768px){
+  
+  .user__buttons {
+    margin: 0;
+    float: right;
+
+  }
+}
