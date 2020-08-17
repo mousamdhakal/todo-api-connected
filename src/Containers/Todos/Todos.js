@@ -83,7 +83,7 @@ class Todos extends Component {
     if (this.props.show) {
       return this.filterTasks(
         this.props.todos.filter((task) => {
-          const lc = task.text.toLowerCase();
+          const lc = task.todos.toLowerCase();
           const filter = this.props.searchText.toLowerCase();
           return lc.includes(filter);
         })
