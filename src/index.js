@@ -8,6 +8,9 @@ import './styles/layout.css';
 
 import Routes from './routes';
 import store from './store';
+import setAuthorizationToken from './utils/setAuthorizationToken';
+
+setAuthorizationToken(localStorage.jwtToken);
 
 const App = () => <Routes />;
 

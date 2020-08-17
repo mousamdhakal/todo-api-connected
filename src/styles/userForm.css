@@ -33,13 +33,19 @@
 }
 
 .user-form__submit {
-  background-color: var(--medium-red);
   border: none;
   border-radius: 5px;
   padding: 10px;
-  color: var(--light-grey);
   margin: 15px 5px;
   cursor: pointer;
+  background-color: var(--fair-grey);
+  color: var(--medium-grey);
+  transition: all 0.2s 0s;
+}
+
+.user-form__submit:hover {
+  background-color: var(--medium-red);
+  color: var(--light-grey);
 }
 
 @media (min-width: 500px){

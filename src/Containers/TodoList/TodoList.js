@@ -1,5 +1,5 @@
-import React from "react";
-import "./TodoList.css";
+import React from 'react';
+import './TodoList.css';
 
 const ToDoList = (props) => {
   let todoList = props.tasks.length ? (
@@ -8,12 +8,12 @@ const ToDoList = (props) => {
         <div className="todos__list-item" key={task.id}>
           <span
             className={
-              task.complete
-                ? "todos__text todos__text--complete"
-                : "todos__text"
+              task.completed
+                ? 'todos__text todos__text--complete'
+                : 'todos__text'
             }
           >
-            {task.text}
+            {task.todos}
           </span>
           <button
             className="todos__button todos__button--delete"
@@ -25,7 +25,7 @@ const ToDoList = (props) => {
             className="todos__button todos__button--checkbox"
             onClick={() => props.changeTaskStatus(task.id)}
           >
-            {task.complete ? (
+            {task.completed ? (
               <i className="far fa-check-square"></i>
             ) : (
               <i className="far fa-square"></i>

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Todos from './Containers/Todos/Todos';
-import SearchBar from './Components/SearchBar/SearchBar';
-import Button from './Components/common/button';
-import Header from './Containers/Header/Header';
+import Todos from '../../Containers/Todos/Todos';
+import SearchBar from '../../Components/SearchBar/SearchBar';
+import Button from '../../Components/common/button';
+import NavBar from '../../Containers/NavBar/NavBar';
 
-class App extends Component {
+class DashBoard extends Component {
   constructor() {
     super();
 
@@ -35,11 +35,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header>
-          <SearchBar handleChange={this.handleChange} />
-        </Header>
+        <NavBar />
         <section className="todos">
-          <div className="container">
+          <div className="container clearfix">
             <div className="display-buttons">
               <Button
                 className={`${this.state.display === 'all' ? 'active' : ''}`}
@@ -64,6 +62,7 @@ class App extends Component {
                 Incomplete
               </Button>
             </div>
+            <SearchBar handleChange={this.handleChange} />
             <Todos
               display={this.state.display}
               show={this.state.showSearchResult}
@@ -76,4 +75,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default DashBoard;

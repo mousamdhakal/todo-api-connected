@@ -1,11 +1,11 @@
 import React from 'react';
-import LoginHeader from '../../Containers/LoginHeader/LoginHeader';
 import './Home.css';
+import NavBar from '../../Containers/NavBar/NavBar';
 
 export default function Home() {
   return (
     <>
-      <LoginHeader />
+      <NavBar />
       <section className="welcome">
         <div className="container">
           <div className="welcome__text">

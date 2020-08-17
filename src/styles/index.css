@@ -6,21 +6,11 @@ h1,h2,h3,h4,h5,h6, label {
   font-family: 'Noto Sans', sans-serif;
 }
 
-.search {
-  padding: 6px 0;
-}
 
-.todos, .form__input, .search__input {
+.todos, .form__input {
   font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   color: var(--light-red);
-}
-
-.search__input {
-  background-color: transparent;
-  color: var(--light-grey);
-  border: none;
-  width: 150px;
 }
 
 .todos__list-item {
@@ -72,6 +62,27 @@ h1,h2,h3,h4,h5,h6, label {
   padding: 10px 0;
 }
 
+.server-message {
+  padding: 10px 5px;
+  border-radius: 15px;
+  width: 80%;
+  margin: 0px auto;
+}
+.server-message--success {
+  background-color: var(--fair-grey);
+  color: var(--medium-grey);
+}
+
+.server-message--failure {
+  background-color: var(--medium-red);
+  color: var(--light-grey)
+
+}
+
+/* .server-message__text {
+
+} */
+
 @media (min-width: 768px){
   .header__brand {
     float: left;
@@ -80,18 +91,9 @@ h1,h2,h3,h4,h5,h6, label {
   .header__text {
     font-size: 35px;
   }
-
-  .search {
-    float: right;
-    padding: 9px 0;
-  }
-
-  .search__input {
-    width: 180px;
-  }
   
-  .todos, .form__input, .search__input {
-    font-size: 25px;
+  .todos, .form__input {
+    font-size: 20px;
   }
 
   .todos__button {

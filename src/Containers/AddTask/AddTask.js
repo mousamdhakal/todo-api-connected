@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import "./AddTask.css";
+import React, { Component } from 'react';
+import './AddTask.css';
 
 class AddTask extends Component {
   constructor() {
     super();
 
     this.state = {
-      text: "",
+      text: '',
     };
   }
 
@@ -19,9 +19,9 @@ class AddTask extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.text) {
-      this.props.addTask(this.state);
+      this.props.addTask(this.state.text);
       this.setState({
-        text: "",
+        text: '',
       });
     }
   };

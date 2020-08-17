@@ -2,7 +2,7 @@ import * as todosActions from '../actions/todosActions';
 
 //Initial state of todos
 const INITIAL_STATE = {
-  todos: null,
+  todos: [],
 };
 
 function todosReducer(state = INITIAL_STATE, action) {

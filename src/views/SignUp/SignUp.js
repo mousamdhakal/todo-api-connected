@@ -1,11 +1,25 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { registerUser } from '../../services/http';
-import LoginHeader from '../../Containers/LoginHeader/LoginHeader';
 import '../../styles/userForm.css';
+import NavBar from '../../Containers/NavBar/NavBar';
+import * as signActions from '../../actions/signActions';
 
 export default function SignUp() {
+  let message = useSelector((state) => state.sign.signUpMessage);
+  const dispatch = useDispatch();
+  dispatch(signActions.setSignIn(null));
+
+  const handleSignUp = (data) => {
+    registerUser(data, callBack);
+  };
+
+  const callBack = (data) => {
+    dispatch(signActions.setSignUp(data));
+  };
+
   const formik = useFormik({
     initialValues: {
       first_name: '',
@@ -15,17 +29,27 @@ export default function SignUp() {
     },
 
     onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
-      registerUser(JSON.stringify(values, null, 2));
+      handleSignUp(JSON.stringify(values, null, 2));
     },
   });
   return (
     <>
-      <LoginHeader />
+      <NavBar />
       <div>
         <div className="container">
           <form className="user-form" onSubmit={formik.handleSubmit}>
             <h2 className="user-form__heading">Sign Up</h2>
+            {message ? (
+              <div
+                className={`server-message ${
+                  message.status === 200
+                    ? 'server-message--success'
+                    : 'server-message--failure'
+                }`}
+              >
+                <p className="server-message__text">{message.message}</p>
+              </div>
+            ) : null}
             <label className="user-form__label" htmlFor="first_name">
               <b>First Name</b>
             </label>

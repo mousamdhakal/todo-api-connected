@@ -1,82 +1,102 @@
-import React, { Component } from "react";
-import ToDoList from "../TodoList/TodoList";
-import AddTask from "../AddTask/AddTask";
-import "./Todos.css";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import ToDoList from '../TodoList/TodoList';
+import AddTask from '../AddTask/AddTask';
+import './Todos.css';
+import * as todosActions from '../../actions/todosActions';
+import {
+  getAllTodo,
+  addTodo,
+  updateTodo,
+  deleteTodo,
+} from '../../services/http';
 
 class Todos extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {
-      tasks: [
-        { id: 1, text: "Make bed", complete: true },
-        { id: 2, text: "Do assignment", complete: false },
-        { id: 3, text: "Play football", complete: false },
-      ],
-      count: 4,
-    };
+    getAllTodo((todos) => this.props.setTodos(todos));
   }
 
   deleteTask = (id) => {
-    let tasks = this.state.tasks.filter((task) => {
-      return task.id !== id;
+    let tasks = this.props.todos.filter((todo) => {
+      return todo.id !== id;
     });
-    this.setState({ tasks });
+    let data = {
+      id: id,
+    };
+    deleteTodo(data, () => {
+      this.props.setTodos(tasks);
+    });
   };
 
-  addTask = (task) => {
-    task.id = this.state.count;
-    let tasks = [...this.state.tasks, task];
-    this.setState({
-      tasks: tasks,
-      count: this.state.count + 1,
+  addNewTask = (text) => {
+    let newTask = {
+      todo: text,
+      completed: false,
+    };
+    addTodo(newTask, (todo) => {
+      let todoAdded = {
+        id: todo.id,
+        todos: todo.todo,
+        completed: todo.completed,
+      };
+      this.props.setTodos([...this.props.todos, todoAdded]);
     });
   };
 
   changeTaskStatus = (id) => {
-    let tasks = this.state.tasks.map((task) => {
+    let thisTask;
+    let updatedTodos = this.props.todos.map((task) => {
       if (task.id === id) {
-        task.complete = !task.complete;
+        task.completed = !task.completed;
+        thisTask = task;
       }
       return task;
     });
-    this.setState({
-      tasks,
+    let updatedTask = {
+      id: thisTask.id,
+      todo: thisTask.todos,
+      completed: thisTask.completed,
+    };
+    updateTodo(updatedTask, () => {
+      this.props.setTodos(updatedTodos);
     });
   };
 
   filterTasks = (tasks) => {
-    if (this.props.display === "all") {
+    if (this.props.display === 'all') {
       return tasks;
     }
 
-    if (this.props.display === "completed") {
-      return tasks.filter((task) => task.complete);
+    if (this.props.display === 'completed') {
+      return tasks.filter((task) => task.completed);
     }
 
-    if (this.props.display === "incomplete") {
-      return tasks.filter((task) => !task.complete);
+    if (this.props.display === 'incomplete') {
+      return tasks.filter((task) => !task.completed);
     }
   };
 
   searchTasks = () => {
     if (this.props.show) {
       return this.filterTasks(
-        this.state.tasks.filter((task) => {
+        this.props.todos.filter((task) => {
           const lc = task.text.toLowerCase();
           const filter = this.props.searchText.toLowerCase();
           return lc.includes(filter);
         })
       );
     } else {
-      return this.filterTasks(this.state.tasks);
+      return this.filterTasks(this.props.todos);
     }
   };
 
   render() {
     return (
       <>
-        <AddTask addTask={this.addTask} />
+        <AddTask addTask={this.addNewTask} />
         <ToDoList
           tasks={this.searchTasks()}
           deleteTask={this.deleteTask}
@@ -87,4 +107,16 @@ class Todos extends Component {
   }
 }
 
-export default Todos;
+const mapStateToProps = (state) => {
+  return { todos: state.todo.todos };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setTodos: (todos) => {
+      dispatch(todosActions.setTodos(todos));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);
